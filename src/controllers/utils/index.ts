@@ -1,5 +1,5 @@
 import Joi from "joi";
-import { Context } from "../../types";
+import { Context } from "../../types/index.ts";
 
 export enum ERROR_STATUS {
 	PARAMS_ERROR = 400,

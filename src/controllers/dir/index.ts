@@ -1,3 +1,3 @@
-export * from "./create";
-export * from "./rename";
-export * from "./delete";
+export * from "./create.ts";
+export * from "./rename.ts";
+export * from "./delete.ts";

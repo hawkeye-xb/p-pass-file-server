@@ -1,5 +1,5 @@
 import Koa from "koa";
-import logger from "../utils/logger";
+import logger from "../utils/logger.ts";
 
 export async function reqLogger(ctx: Koa.Context, next: Koa.Next) {
   const start = Date.now();

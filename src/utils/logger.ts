@@ -1,5 +1,5 @@
 import log4js from "log4js";
-import { LOG_PATH } from '../consts/log';
+import { LOG_PATH } from '../consts/log.ts';
 
 log4js.configure({
   appenders: {

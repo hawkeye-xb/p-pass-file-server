@@ -1,11 +1,11 @@
 import Router from "koa-router";
-import { createDir, deleteDir, renameDir } from "../controllers/dir";
+import { createDir, deleteDirs, renameDir } from "../controllers/dir/index.ts";
 
 const router = new Router();
 
 router
 	.post("/", createDir)
 	.patch("/", renameDir)
-	.delete("/", deleteDir);
+	.delete("/", deleteDirs);
 
 export default router;

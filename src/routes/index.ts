@@ -1,5 +1,5 @@
 import Router from "koa-router";
-import dirRouter from "./dir";
+import dirRouter from "./dir.ts";
 
 const router = new Router();
 

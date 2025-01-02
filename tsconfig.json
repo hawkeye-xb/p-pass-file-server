@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
+    "allowImportingTsExtensions": true, // 禁用该选项
     "target": "ES6",
-    "module": "commonjs",
+    "module": "NodeNext",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,

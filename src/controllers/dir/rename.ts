@@ -1,8 +1,8 @@
 import fs from 'fs-extra';
 import Joi from "joi";
 import path from "path";
-import { Context } from "../../types";
-import { joiValidate, handleErrorMessage, ERROR_STATUS, ERROR_CODE ,ERROR_MSG, handleTryCatchError } from '../utils';
+import { Context } from "../../types/index.ts";
+import { joiValidate, handleErrorMessage, ERROR_STATUS, ERROR_CODE ,ERROR_MSG, handleTryCatchError } from '../utils/index.ts';
 
 const renameDirSchema = Joi.object({
   target: Joi.string().required(),
