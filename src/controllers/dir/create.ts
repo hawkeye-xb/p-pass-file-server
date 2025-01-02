@@ -2,7 +2,11 @@ import fs from 'fs-extra';
 import Joi from "joi";
 import path from "path";
 import { Context } from "../../types/index.ts";
-import { joiValidate, handleErrorMessage, ERROR_STATUS, ERROR_CODE ,ERROR_MSG, handleTryCatchError } from '../utils/index.ts';
+import { joiValidate,
+	handleErrorMessage,
+	handleTryCatchError,
+	RULES_ERR,
+} from '../utils/index.ts';
 
 const createDirSchema = Joi.object({
   target: Joi.string().required(),
@@ -17,29 +21,17 @@ export const createDir = (ctx: Context) => {
 	const { target, name } = value;
 	try {
 		if (!fs.existsSync(target)) {
-			handleErrorMessage(ctx, {
-				status: ERROR_STATUS.PARAMS_ERROR,
-				code: ERROR_CODE.FS_NOT_EXIST,
-				message: ERROR_MSG[ERROR_CODE.FS_NOT_EXIST],
-			})
+			handleErrorMessage(ctx, RULES_ERR.FS_EXIST_SYNC);
 			return;
 		}
 
 		if (!fs.statSync(target).isDirectory()) {
-			handleErrorMessage(ctx, {
-				status: ERROR_STATUS.PARAMS_ERROR,
-				code: ERROR_CODE.NOT_A_DIRECTORY,
-				message: ERROR_MSG[ERROR_CODE.NOT_A_DIRECTORY],
-			})
+			handleErrorMessage(ctx, RULES_ERR.FS_STAT_SYNC);
 			return;
 		}
 
 		if (fs.existsSync(path.join(target, name))) {
-			handleErrorMessage(ctx, {
-				status: ERROR_STATUS.PARAMS_ERROR,
-				code: ERROR_CODE.FOLDER_ALREADY_EXISTS,
-				message: ERROR_MSG[ERROR_CODE.FOLDER_ALREADY_EXISTS],
-			})
+			handleErrorMessage(ctx, RULES_ERR.FS_EXISTS_SYNC);
 			return;
 		}
 

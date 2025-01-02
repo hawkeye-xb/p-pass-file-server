@@ -1,5 +1,8 @@
 {
   "compilerOptions": {
+    "paths": {
+      "@/*": ["./src/*"]
+    },
     "moduleResolution": "bundler", // 模块解析策略设置为 bundler
     "noEmit": true, // 不生成输出文件
     "esModuleInterop": true, // 允许 CommonJS 和 ESM 互操作
