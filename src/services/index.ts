@@ -4,7 +4,7 @@ import path from 'path';
 export * from './watcher.ts';
 import { watcher } from './watcher.ts';
 
-export const init = () => {
+export const initWatcher = () => {
 	watcher.on('all', (event, path) => {
 		console.log(event, path);
 	})

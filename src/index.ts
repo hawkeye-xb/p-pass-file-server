@@ -4,6 +4,7 @@ import cors from '@koa/cors';
 import router from './routes/index.ts';
 import serve from 'koa-static';
 import path from 'path';
+import { initWatcher } from './services/index.ts';
 // import { reqLogger } from './middles/reqLog';
 
 const app = new Koa();
@@ -26,4 +27,4 @@ app.use(router.routes()).use(router.allowedMethods());
 const server = app.listen(PORT, () => {
   console.info(`Server is running on http://localhost:${PORT}`);
 });
-
+initWatcher();

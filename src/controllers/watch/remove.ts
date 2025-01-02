@@ -22,7 +22,7 @@ export const unWatchCtrl = (ctx: Context) => {
 		}
 
 		const res = unWatch(target); // 上面校验了
-		if (!res) {
+		if (res) {
 			handleErrorMessage(ctx, RULES_ERR.WATCHER_UNWATCH_NOT_WATCH);
 			return;
 		}
