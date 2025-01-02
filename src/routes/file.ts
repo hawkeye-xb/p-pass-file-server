@@ -4,7 +4,6 @@ import Router from "koa-router";
 const router = new Router();
 
 router
-	.patch("/", renameFile)
-	;
+	.patch("/", renameFile);
 
 export default router;
