@@ -13,11 +13,13 @@ export enum ERROR_CODE {
 	PARAMS_VALIDATE_ERROR = 40001,
 	FS_NOT_EXIST = 40002,
 	FOLDER_ALREADY_EXISTS = 40003,
+	NOT_A_DIRECTORY = 40004,
 }
 
 export const ERROR_MSG = {
 	[ERROR_CODE.FS_NOT_EXIST]: 'The destination folder does not exist',
 	[ERROR_CODE.FOLDER_ALREADY_EXISTS]: 'The folder already exists',
+	[ERROR_CODE.NOT_A_DIRECTORY]: 'The target is not a directory',
 }
 
 export const handleErrorMessage = (ctx: Context, info: {

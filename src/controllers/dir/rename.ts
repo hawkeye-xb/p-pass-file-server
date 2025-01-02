@@ -4,18 +4,20 @@ import path from "path";
 import { Context } from "../../types";
 import { joiValidate, handleErrorMessage, ERROR_STATUS, ERROR_CODE ,ERROR_MSG, handleTryCatchError } from '../utils';
 
-const createDirSchema = Joi.object({
+const renameDirSchema = Joi.object({
   target: Joi.string().required(),
   name: Joi.string().required(),
 });
-export const createDir = (ctx: Context) => {
-	const value = joiValidate(createDirSchema, ctx);
+export const renameDir = (ctx: Context) => {
+	const value = joiValidate(renameDirSchema, ctx);
 	if (value === null) {
 		return;
 	}
 
 	const { target, name } = value;
+
 	try {
+		// 检查路径是否存在
 		if (!fs.existsSync(target)) {
 			handleErrorMessage(ctx, {
 				status: ERROR_STATUS.PARAMS_ERROR,
@@ -24,7 +26,7 @@ export const createDir = (ctx: Context) => {
 			})
 			return;
 		}
-
+		// 检查路径是否为文件夹
 		if (!fs.statSync(target).isDirectory()) {
 			handleErrorMessage(ctx, {
 				status: ERROR_STATUS.PARAMS_ERROR,
@@ -34,7 +36,10 @@ export const createDir = (ctx: Context) => {
 			return;
 		}
 
-		if (fs.existsSync(path.join(target, name))) {
+		const newPath = path.join(path.dirname(target), name);
+
+		// 检查新路径是否存在
+		if (fs.existsSync(newPath)) {
 			handleErrorMessage(ctx, {
 				status: ERROR_STATUS.PARAMS_ERROR,
 				code: ERROR_CODE.FOLDER_ALREADY_EXISTS,
@@ -42,13 +47,13 @@ export const createDir = (ctx: Context) => {
 			})
 			return;
 		}
-
-		fs.mkdirSync(path.join(target, name));
+		// 重命名文件夹
+		fs.renameSync(target, newPath);
 		ctx.body = {
 			code: 0,
-			message: 'success',
+			message:'success',
 		}
-	} catch (error: any) {
+	} catch (error) {
 		handleTryCatchError(ctx, error);
 	}
 }
