@@ -15,13 +15,16 @@ export enum ERROR_CODE {
 	FOLDER_ALREADY_EXISTS = 40003,
 	NOT_A_DIRECTORY = 40004,
 	FOLDER_NOT_EMPTY = 40005,
+	// file
+	NOT_A_FILE = 40006,
 }
 
 export const ERROR_MSG = {
-	[ERROR_CODE.FS_NOT_EXIST]: 'The destination folder does not exist',
-	[ERROR_CODE.FOLDER_ALREADY_EXISTS]: 'The folder already exists',
-	[ERROR_CODE.NOT_A_DIRECTORY]: 'The target is not a directory',
+	[ERROR_CODE.FS_NOT_EXIST]: 'Target does not exist',
+	[ERROR_CODE.FOLDER_ALREADY_EXISTS]: 'Target already exists',
+	[ERROR_CODE.NOT_A_DIRECTORY]: 'Target is not a directory',
 	[ERROR_CODE.FOLDER_NOT_EMPTY]: 'The folder is not empty',
+	[ERROR_CODE.NOT_A_FILE]: 'Target is not a file',
 }
 
 
