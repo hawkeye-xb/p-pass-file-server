@@ -3,7 +3,8 @@ import { Context } from "@/types/index.ts";
 import { ERROR_STATUS, ERROR_CODE, ERROR_MSG, handleErrorMessage } from './error.ts';
 
 export const joiValidate = (scheme: Joi.ObjectSchema<any>, ctx: Context) => {
-	const { error, value } = scheme.validate(ctx.request.body);
+	const params = ctx.method === 'GET' ? ctx.query : ctx.request.body;
+	const { error, value } = scheme.validate(params);
 
 	if (error) {
 		handleErrorMessage(ctx, {
