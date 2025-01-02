@@ -59,10 +59,19 @@ const deleteDirValidate = validate<{target: string, force?: boolean}>([
 	},
 ]);
 
+const deleteOption = (b: boolean) => {
+	if (b) {
+		return trash;
+	}
+	return fs.removeSync;
+}
+
 // 批量删除
 const deleteDirsSchema = Joi.object({
   targets: Joi.array().items(Joi.string()).required(),
 	force: Joi.boolean(),
+	// 是否移动到回收站，或直接删除
+	trash: Joi.boolean(),
 });
 export const deleteDirs = (ctx: Context) => {
 	try {
@@ -71,7 +80,7 @@ export const deleteDirs = (ctx: Context) => {
 			return;
 		}
 
-		const { targets, force = false } = value;
+		const { targets, force = false, trash = true } = value;
 		// 校验所有target
 
 		for (const target of targets) {
@@ -85,10 +94,10 @@ export const deleteDirs = (ctx: Context) => {
 			}
 		}
 
-		console.log(targets);
+		const del = deleteOption(trash);
 		for (const target of targets) {
 			// 移动到系统的垃圾桶
-			trash(target);
+			del(target);
 		}
 		ctx.body = {
 			code: 0,
