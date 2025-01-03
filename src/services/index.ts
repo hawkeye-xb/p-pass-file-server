@@ -7,6 +7,7 @@ import path from 'path';
 import { setAllChangeCallback, setAddWatched, setUnWatched } from './watcher.ts';
 import { walkDir } from './utils/handleMetadata.ts';
 import { addMetadatas, deleteMetadatas, updateMetadata } from './metadata.ts';
+import { broadcast } from './ws.ts';
 
 const parentPathSet = new Set<string>();
 
@@ -17,9 +18,7 @@ const handleAllChange = () => {
 		clearTimeout(timer);
 	}
 	timer = setTimeout(() => {
-		// set 转数组
 		const targets = filterParentPaths(Array.from(parentPathSet))
-		console.log('更新的路径:', targets);
 		
 		targets.forEach((target) => {
 			const metadata = walkDir(target);
@@ -30,6 +29,8 @@ const handleAllChange = () => {
 		});
 
 		parentPathSet.clear();
+
+		broadcast('change');
 	}, 100);
 }
 
@@ -52,21 +53,20 @@ function filterParentPaths(paths: string[]) {
 }
 
 export const initWatcher = () => {
-	// 监听所有文件的变化
 	setAllChangeCallback((event, filename) => {
 		parentPathSet.add(path.dirname(filename));
 
 		handleAllChange();
 	});
-	// 监听某个文件的变化
+	
 	setAddWatched((filename) => {
-		console.log('add watched', filename);
 		const metadata = walkDir(filename);
 		addMetadatas(filename, metadata);
+
+		broadcast('add');
 	});
-	// 取消监听某个文件的变化
 	setUnWatched((filename) => {
-		console.log('un watched', filename);
 		deleteMetadatas(filename);
+		broadcast('unwatch');
 	});
 }
