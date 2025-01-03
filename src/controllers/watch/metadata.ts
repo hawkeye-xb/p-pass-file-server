@@ -1,7 +1,7 @@
 import Joi from "joi";
 import { Context } from "@/types/index.ts";
 import { joiValidate, handleErrorMessage, handleTryCatchError, RULES_ERR } from '../utils/index.ts';
-import { getMetadatas } from "@/services/metadata.ts";
+import { getAllWatcherMetadatas } from "@/services/metadata.ts";
 
 const getWatchPathMetadataSchema = Joi.object({
   target: Joi.string(),
@@ -13,7 +13,7 @@ export const getWatchPathMetadata = (ctx: Context) => {
 			return;
 		}
 		const { target } = value;
-		const data = Object.fromEntries(getMetadatas(target));
+		const data = getAllWatcherMetadatas(target);
 		ctx.body = {
 			code: 200,
 			message: "success",

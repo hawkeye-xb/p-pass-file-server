@@ -1,16 +1,7 @@
 import fs from 'fs-extra';
 import path from 'path';
+import { MetadataType } from './type';
 
-interface MetadataType {
-	ino: number,
-	path: string,
-	size: number,
-	ctime: Date,
-	mtime: Date,
-	type: string,
-	children?: MetadataType[],
-	parent: string | null,
-}
 export function walkDir(target: string, parent: string | null = null) {
 	const metadata = generatePathMetadata(target); // 错误持续抛出
 	if (metadata instanceof Error) {
