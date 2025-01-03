@@ -27,7 +27,11 @@ export const addWatchCtrl = (ctx: Context) => {
 			return;
 		}
 
-		addWatch(target); // 上面校验了
+		const err = addWatch(target); // 上面校验了
+		if (err) {
+			handleErrorMessage(ctx, RULES_ERR.WATCHER_ADD_WATCH_EXISTS);
+			return;
+		}
 		ctx.body = {
 			code: 0,
 			message: 'success',

@@ -19,6 +19,7 @@ export enum ERROR_CODE {
 	NOT_A_FILE = 40006,
 	// watcher
 	WATCHER_UNWATCH_NOT_WATCH = 40007,
+	WATCHER_ADD_WATCH_EXISTS = 40008,
 }
 
 export const ERROR_MSG = {
@@ -28,6 +29,7 @@ export const ERROR_MSG = {
 	[ERROR_CODE.FOLDER_NOT_EMPTY]: 'The folder is not empty',
 	[ERROR_CODE.NOT_A_FILE]: 'Target is not a file',
 	[ERROR_CODE.WATCHER_UNWATCH_NOT_WATCH]: 'target is not watched',
+	[ERROR_CODE.WATCHER_ADD_WATCH_EXISTS]: 'target is already watched',
 }
 
 

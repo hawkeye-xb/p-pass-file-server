@@ -2,12 +2,12 @@ import fs from 'fs-extra';
 import path from 'path';
 // 初始化的时候做组合
 export * from './watcher.ts';
-import { watcher } from './watcher.ts';
+// import { watcher } from './watcher.ts';
 
 export const initWatcher = () => {
-	watcher.on('all', (event, path) => {
-		console.log(event, path);
-	})
+	// watcher.on('all', (event, path) => {
+	// 	console.log(event, path);
+	// })
 }
 
 interface MetadataType {
