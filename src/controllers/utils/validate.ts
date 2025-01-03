@@ -39,7 +39,7 @@ export const validate = <T>(rules: {
 	}
 }
 
-export const RULES_ERR: Record<string, RULES_ERR_TYPE> = {
+const fsErr = {
 	FS_EXIST_SYNC: {
 		status: ERROR_STATUS.PARAMS_ERROR,
 		code: ERROR_CODE.FS_NOT_EXIST,
@@ -65,6 +65,9 @@ export const RULES_ERR: Record<string, RULES_ERR_TYPE> = {
 		code: ERROR_CODE.FOLDER_ALREADY_EXISTS,
 		message: ERROR_MSG[ERROR_CODE.FOLDER_ALREADY_EXISTS],
 	},
+}
+export const RULES_ERR: Record<string, RULES_ERR_TYPE> = {
+	...fsErr,
 	WATCHER_UNWATCH_NOT_WATCH: {
 		status: ERROR_STATUS.SERVER_ERROR,
 		code: ERROR_CODE.WATCHER_UNWATCH_NOT_WATCH,

@@ -2,12 +2,22 @@ import fs from 'fs-extra';
 import path from 'path';
 // 初始化的时候做组合
 export * from './watcher.ts';
-// import { watcher } from './watcher.ts';
+export * from './ws.ts';
+import { setAllChangeCallback, setAddWatched, setUnWatched } from './watcher.ts';
 
 export const initWatcher = () => {
-	// watcher.on('all', (event, path) => {
-	// 	console.log(event, path);
-	// })
+	// 监听所有文件的变化
+	setAllChangeCallback((event, filename) => {
+		console.log('event', event, filename);
+	});
+	// 监听某个文件的变化
+	setAddWatched((filename) => {
+		console.log('add watched', filename);
+	});
+	// 取消监听某个文件的变化
+	setUnWatched((filename) => {
+		console.log('un watched', filename);
+	});
 }
 
 interface MetadataType {
