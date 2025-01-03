@@ -28,7 +28,7 @@ export const downloadFile = (ctx: Context) => {
 		// 判断是否是文件
 		const stat = fs.statSync(target);
 		if (!stat.isFile()) {
-			handleErrorMessage(ctx, RULES_ERR.IS_NOT_FILE);
+			handleErrorMessage(ctx, RULES_ERR.FS_STAT_SYNC_FILE);
 			return;
 		}
 
