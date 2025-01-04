@@ -20,7 +20,7 @@ export function walkDir(target: string, parent: string | null = null) {
 	return metadata;
 }
 
-function generatePathMetadata(target: string): MetadataType | Error {
+export function generatePathMetadata(target: string): MetadataType | Error {
 	// 判断是否存在
 	if (!fs.existsSync(target)) {
 		return new Error('target not exists');

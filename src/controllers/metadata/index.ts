@@ -2,9 +2,11 @@ import fs from 'fs-extra';
 import Joi from "joi";
 import { Context } from "@/types/index.ts";
 import { joiValidate, handleErrorMessage, handleTryCatchError, RULES_ERR } from '../utils/index.ts';
+import { generatePathMetadata, walkDir } from '@/services/utils/handleMetadata.ts';
 
 const getPathMetadataSchema = Joi.object({
 	target: Joi.string().required(),
+	depth: Joi.number(),
 });
 export const getPathMetadata = (ctx: Context) => {
 	try {
@@ -13,17 +15,22 @@ export const getPathMetadata = (ctx: Context) => {
 			return;
 		}
 
-		const { target } = value;
+		const { target, depth } = value;
 		// 判断是否存在
 		if (!fs.existsSync(target)) {
 			handleErrorMessage(ctx, RULES_ERR.FS_EXIST_SYNC);
 			return;
 		}
-		const stats = fs.statSync(target);
+
+		let res = generatePathMetadata(target);
+		if (depth) {
+			res = walkDir(target, null);
+		}
+
 		ctx.body = {
 			code: 0,
 			message: 'success',
-			data: stats,
+			data: res,
 		};
 	} catch (error) {
 		handleTryCatchError(ctx, error);
