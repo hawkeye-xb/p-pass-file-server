@@ -22,6 +22,7 @@ export enum ERROR_CODE {
 	WATCHER_ADD_WATCH_EXISTS = 40008,
 	// 
 	OUT_OF_RANGE = 40009,
+	NOT_FILE_UPLOAD = 40010,
 }
 
 export const ERROR_MSG = {
@@ -33,6 +34,7 @@ export const ERROR_MSG = {
 	[ERROR_CODE.WATCHER_UNWATCH_NOT_WATCH]: 'target is not watched',
 	[ERROR_CODE.WATCHER_ADD_WATCH_EXISTS]: 'target is already watched',
 	[ERROR_CODE.OUT_OF_RANGE]: 'out of range',
+	[ERROR_CODE.NOT_FILE_UPLOAD]: 'not file upload',
 }
 
 

@@ -83,4 +83,9 @@ export const RULES_ERR: Record<string, RULES_ERR_TYPE> = {
 		code: ERROR_CODE.OUT_OF_RANGE,
 		message: ERROR_MSG[ERROR_CODE.OUT_OF_RANGE],
 	},
+	NOT_FILE_UPLOAD: {
+		status: ERROR_STATUS.PARAMS_ERROR,
+		code: ERROR_CODE.NOT_FILE_UPLOAD,
+		message: ERROR_MSG[ERROR_CODE.NOT_FILE_UPLOAD],
+	},
 };
