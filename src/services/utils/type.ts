@@ -1,4 +1,5 @@
 export interface MetadataType {
+	name: string,
 	ino: number,
 	path: string,
 	size: number,

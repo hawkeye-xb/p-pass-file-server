@@ -34,6 +34,7 @@ export function generatePathMetadata(target: string): MetadataType | Error {
 
 	// todo: 有必要计算hash吗，性能消耗比较大
 	const metadata = {
+		name: path.basename(target),
 		ino: stats.ino,
 		path: target,
 		size: stats.size,

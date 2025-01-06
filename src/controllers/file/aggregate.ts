@@ -48,14 +48,12 @@ export const aggregateFiles = async (ctx: Context) => {
 		// 将文件流式写入新文件内
 		const writeStream = fs.createWriteStream(newPath);
 		
-		console.log(1);
 		await new Promise((resolve, reject) => {
 			writeStream.on('finish', resolve);
 			writeStream.on('error', reject);
 
 			const bools = new Array(filePaths.length).fill(false);
 			filePaths.forEach((filePath: { path: string; }, index: number) => {
-				console.log(filePath);
 				const readStream = fs.createReadStream(filePath.path);
 				readStream.pipe(writeStream, { end: false });
 				readStream.on('error', reject);
@@ -68,7 +66,6 @@ export const aggregateFiles = async (ctx: Context) => {
 				});
 			});
 		});
-		console.log(2);
 
 		writeStream.end();
 

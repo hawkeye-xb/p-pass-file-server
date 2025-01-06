@@ -17,8 +17,8 @@ router.use("/file", fileRouter.routes(), fileRouter.allowedMethods());
 router.use("/watch", watchRouter.routes(), watchRouter.allowedMethods());
 
 router.post("/move", moveSrc);
-router.post("/delete", deleteSrc);
+router.delete("/res", deleteSrc);
 
-router.get("/metadate", getPathMetadata);
+router.get("/metadata", getPathMetadata);
 
 export default router;
