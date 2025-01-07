@@ -14,7 +14,6 @@ export const unWatchCtrl = (ctx: Context) => {
 			return;
 		}
 		let { target } = value;
-		target = handleDirPath(target);
 
 		// 只对文件夹监听
 		if (!fs.statSync(target).isDirectory()) {
@@ -22,6 +21,7 @@ export const unWatchCtrl = (ctx: Context) => {
 			return;
 		}
 
+		target = handleDirPath(target);
 		const res = unWatch(target); // 上面校验了
 		if (res) {
 			handleErrorMessage(ctx, RULES_ERR.WATCHER_UNWATCH_NOT_WATCH);

@@ -14,8 +14,7 @@ export const addWatchCtrl = (ctx: Context) => {
 			return;
 		}
 		let { target } = value;
-		target = handleDirPath(target);
-
+	
 		// 判断是否存在
 		if (!fs.existsSync(target)) {
 			handleErrorMessage(ctx, RULES_ERR.FS_EXIST_SYNC);
@@ -28,6 +27,7 @@ export const addWatchCtrl = (ctx: Context) => {
 			return;
 		}
 
+		target = handleDirPath(target);
 		const err = addWatch(target); // 上面校验了
 		if (err) {
 			handleErrorMessage(ctx, {
