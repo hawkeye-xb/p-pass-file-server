@@ -1,7 +1,7 @@
 import fs from 'fs-extra';
 import Joi from "joi";
 import { Context } from "@/types/index.ts";
-import { joiValidate, handleErrorMessage, handleTryCatchError, RULES_ERR } from '../utils/index.ts';
+import { joiValidate, handleErrorMessage, handleTryCatchError, RULES_ERR, handleDirPath } from '../utils/index.ts';
 import { addWatch } from "@/services/watcher.ts";
 
 const addWatchSchema = Joi.object({
@@ -13,7 +13,8 @@ export const addWatchCtrl = (ctx: Context) => {
 		if (value === null) {
 			return;
 		}
-		const { target } = value;
+		let { target } = value;
+		target = handleDirPath(target);
 
 		// 判断是否存在
 		if (!fs.existsSync(target)) {

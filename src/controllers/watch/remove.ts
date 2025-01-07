@@ -1,7 +1,7 @@
 import fs from 'fs-extra';
 import Joi from "joi";
 import { Context } from "@/types/index.ts";
-import { joiValidate, handleErrorMessage, handleTryCatchError, RULES_ERR } from '../utils/index.ts';
+import { joiValidate, handleErrorMessage, handleTryCatchError, RULES_ERR, handleDirPath } from '../utils/index.ts';
 import { unWatch } from "@/services/watcher.ts";
 
 const unWatchSchema = Joi.object({
@@ -13,7 +13,8 @@ export const unWatchCtrl = (ctx: Context) => {
 		if (value === null) {
 			return;
 		}
-		const { target } = value;
+		let { target } = value;
+		target = handleDirPath(target);
 
 		// 只对文件夹监听
 		if (!fs.statSync(target).isDirectory()) {
