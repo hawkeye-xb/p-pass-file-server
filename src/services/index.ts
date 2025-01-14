@@ -43,7 +43,7 @@ function filterParentPaths(paths: string[]) {
 
 	for (const path of paths) {
 			// 如果当前路径不是前一个路径的子目录，则将其加入结果数组
-			if (!path.startsWith(previousPath + '/') || previousPath === '') {
+			if (!path.startsWith(previousPath) || previousPath === '') {
 					result.push(path);
 					previousPath = path;
 			}
