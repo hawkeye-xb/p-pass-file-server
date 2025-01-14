@@ -57,7 +57,7 @@ export const downloadFile = (ctx: Context) => {
 		});
 
 		ctx.set('Content-Type', 'application/octet-stream');
-		ctx.set('Content-Disposition', `attachment; filename=${path.basename(target)}`);
+		ctx.set('Content-Disposition', `attachment; filename=${encodeURIComponent(path.basename(target))}`);
 
 		ctx.body = fileStream;
 	} catch (error) {

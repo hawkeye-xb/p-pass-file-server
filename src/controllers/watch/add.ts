@@ -30,10 +30,14 @@ export const addWatchCtrl = (ctx: Context) => {
 		target = handleDirPath(target);
 		const err = addWatch(target); // 上面校验了
 		if (err) {
-			handleErrorMessage(ctx, {
-				...RULES_ERR.WATCHER_ADD_WATCH_EXISTS,
+			// handleErrorMessage(ctx, {
+			// 	...RULES_ERR.WATCHER_ADD_WATCH_EXISTS,
+			// 	message: `${RULES_ERR.WATCHER_ADD_WATCH_EXISTS.message} ${err}`,
+			// });
+			ctx.body = {
+				code: 0,
 				message: `${RULES_ERR.WATCHER_ADD_WATCH_EXISTS.message} ${err}`,
-			});
+			};
 			return;
 		}
 		ctx.body = {

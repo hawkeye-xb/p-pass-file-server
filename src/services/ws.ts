@@ -8,6 +8,7 @@ export const initWss = (server: any) => {
 
 	wss.on("connection", (ws: WebSocket) => {
 		clients.add(ws);
+		ws.send('connected')
 		ws.on("close", () => {
 			clients.delete(ws);
 		});
