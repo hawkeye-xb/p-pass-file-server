@@ -25,7 +25,7 @@ export const aggregateFiles = async (ctx: Context) => {
 		}
 
 		const { target, filePaths, name } = value;
-		
+
 		if (!fs.existsSync(target)) {
 			handleErrorMessage(ctx, RULES_ERR.FS_EXIST_SYNC);
 			return;
@@ -42,32 +42,22 @@ export const aggregateFiles = async (ctx: Context) => {
 			return;
 		}
 
-		// 先排序
-		filePaths.sort((a: { index: number; }, b: { index: number; }) => a.index - b.index);
-
-		// 将文件流式写入新文件内
-		const writeStream = fs.createWriteStream(newPath);
-		
-		await new Promise((resolve, reject) => {
-			writeStream.on('finish', resolve);
-			writeStream.on('error', reject);
-
-			const bools = new Array(filePaths.length).fill(false);
-			filePaths.forEach((filePath: { path: string; }, index: number) => {
-				const readStream = fs.createReadStream(filePath.path);
-				readStream.pipe(writeStream, { end: false });
-				readStream.on('error', reject);
-
-				readStream.on('end', () => {
-					bools[index] = true;
-					if (bools.every((item) => item)) {
-						resolve(null);
-					}
+		const mergeFiles = async () => {
+			filePaths.sort((a: { index: number; }, b: { index: number; }) => a.index - b.index);
+			const writeStream = fs.createWriteStream(newPath);
+			for (const filePath of filePaths) {
+				await new Promise((resolve, reject) => {
+					const readStream = fs.createReadStream(filePath.path);
+					readStream.pipe(writeStream, { end: false });
+					readStream.on('error', reject);
+					readStream.on('end', resolve);
 				});
-			});
-		});
+			}
 
-		writeStream.end();
+			writeStream.end();
+		}
+
+		await mergeFiles();
 
 		// 删除原文件
 		filePaths.forEach((filePath: { path: string; }) => {
@@ -76,7 +66,7 @@ export const aggregateFiles = async (ctx: Context) => {
 
 		ctx.body = {
 			code: 0,
-			message:'success',
+			message: 'success',
 		};
 	} catch (error) {
 		handleTryCatchError(ctx, error);
