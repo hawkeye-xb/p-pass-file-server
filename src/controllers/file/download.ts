@@ -41,11 +41,11 @@ export const downloadFile = (ctx: Context) => {
 		ctx.set('Content-Length', stat.size.toString());
 		if (size !== undefined && 0 < size) {
 			if (offset !== undefined && 0 < offset) {
-				options['end'] = Math.min(offset + size -1, stat.size);
+				options['end'] = Math.min(offset + size, stat.size);
 
 				ctx.set('Content-Length', (options['end'] - options['start']).toString());
 			} else {
-				options['end'] = Math.min(size -1, stat.size); // 需要-1吗？
+				options['end'] = Math.min(size, stat.size);
 
 				ctx.set('Content-Length', options['end'].toString());
 			}

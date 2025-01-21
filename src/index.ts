@@ -8,7 +8,7 @@ import { initWatcher, initWss } from './services/index.ts';
 // import { reqLogger } from './middles/reqLog';
 
 const app = new Koa();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 2501;
 
 // 静态文件服务
 const __dirname = import.meta.url;
