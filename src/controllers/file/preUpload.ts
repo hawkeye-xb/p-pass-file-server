@@ -14,6 +14,8 @@ const preUploadSchema = Joi.object({
 	target: Joi.string().required(),
 	name: Joi.string().required(),
 	size: Joi.number().required(),
+	// 覆盖上传
+	overwrite: Joi.boolean(),
 });
 export const preUpload = (ctx: Context) => {
 	try {
@@ -43,11 +45,13 @@ export const preUpload = (ctx: Context) => {
 		}
 
 		const newPath = path.join(target, name);
-
-		if (fs.existsSync(newPath)) {
-			handleErrorMessage(ctx, RULES_ERR.FS_EXIST_SYNC);
-			return;
+		if (!value.overwrite) {
+			if (fs.existsSync(newPath)) { 
+				handleErrorMessage(ctx, RULES_ERR.FS_EXIST_SYNC);
+				return;
+			}
 		}
+		
 
 		ctx.body = {
 			code: 0,
