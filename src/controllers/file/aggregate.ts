@@ -16,6 +16,8 @@ const aggregateFilesSchema = Joi.object({
 		path: Joi.string().required(),
 	})).required(),
 	name: Joi.string().required(),
+	parentPaths: Joi.array().items(Joi.string()), // 避免前端误传报错
+	temporaryPath: Joi.string(), // 需要删除的临时文件夹
 });
 export const aggregateFiles = async (ctx: Context) => {
 	try {
@@ -63,6 +65,10 @@ export const aggregateFiles = async (ctx: Context) => {
 		filePaths.forEach((filePath: { path: string; }) => {
 			fs.unlinkSync(filePath.path);
 		});
+		// 删除临时文件夹
+		if (value.temporaryPath) {
+			fs.rmdirSync(value.temporaryPath);
+		}
 
 		ctx.body = {
 			code: 0,
