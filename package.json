@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon --exec tsx src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "node esbuild.config.js"
+    "build": "node esbuild.config.js && node copy-node-files.js"
   },
   "author": "lizhaowen",
   "license": "ISC",
@@ -28,8 +28,6 @@
     "ws": "^8.18.0"
   },
   "devDependencies": {
-    "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
-    "@esbuild-plugins/node-modules-polyfill": "^0.2.2",
     "@types/archiver": "^6.0.3",
     "@types/chokidar": "^1.7.5",
     "@types/fs-extra": "^11.0.4",
