@@ -24,7 +24,7 @@ esbuild.build({
   entryPoints: ['src/index.ts'], // 入口文件
   bundle: true, // 打包依赖
   platform: 'node', // 指定为 Node.js 平台
-  format: 'esm', // 设置为 ES 模块
+  format: 'cjs', // 设置为 ES 模块
   outfile: 'dist/index.js', // 输出文件
   // external: ['diskusage'], // 排除原生模块
   define: {
