@@ -15,7 +15,7 @@ export const getWatchPathMetadata = (ctx: Context) => {
 		const { target } = value;
 		const data = getAllWatcherMetadatas(target);
 		ctx.body = {
-			code: 200,
+			code: 0,
 			message: "success",
 			data,
 		};
