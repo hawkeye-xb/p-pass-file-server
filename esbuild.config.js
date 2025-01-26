@@ -30,11 +30,11 @@ esbuild.build({
   define: {
     'import.meta.url': JSON.stringify(`file://${path.resolve(__dirname, 'src/index.ts')}`), // 定义 import.meta.url
   },
-	banner: {
-    js: `
-      import { createRequire } from 'node:module';
-      const require = createRequire(import.meta.url);
-    `,
-  },
+	// banner: {
+  //   js: `
+  //     import { createRequire } from 'node:module';
+  //     const require = createRequire(import.meta.url);
+  //   `,
+  // },
   plugins: [resolveNodePlugin], // 使用自定义插件
 }).catch(() => process.exit(1));

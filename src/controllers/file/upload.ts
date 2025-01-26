@@ -23,9 +23,10 @@ const storage = multer.diskStorage({
 	},
 
 	// filename 不做处理
-	filename: function (req: any, file: any, cb: (arg0: null, arg1: string) => void) {
-		const filename = req.body.name + path.extname(file.originalname);
-		cb(null, filename);
+	filename: function (req: any, file: multer.File, cb: (arg0: null, arg1: string) => void) {
+		// const filename = req.body.name + path.extname(file.originalname);
+		// 省得名称乱码要处理了
+		cb(null, req.body.name);
 	}
 });
 export const uploadInstance = multer({ storage });

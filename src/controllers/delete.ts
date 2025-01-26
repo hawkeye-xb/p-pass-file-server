@@ -13,7 +13,7 @@ const deleteOption = (b: boolean) => {
 	if (b) {
 		return trash;
 	}
-	return fs.removeSync;
+	return fs.remove;
 }
 const deleteSrcScheme = Joi.object({
 	targets: Joi.array().items(Joi.string()).required(),
@@ -55,12 +55,25 @@ export const deleteSrc = (ctx: Context) => {
 		}
 
 		const del = deleteOption(trash);
-		for (const target of targets) {
-			del(target);
+		const delErr: any[] = [];
+		const handle = async () => {
+			for (const target of targets) {
+				try {
+					await del(target);
+				} catch (error) {
+					delErr.push({
+						target,
+						error
+					});
+				}
+			}
 		}
+		handle();
+
 		ctx.body = {
 			code: 0,
 			message: 'success',
+			data: delErr,
 		};
 	} catch (error) {
 		handleTryCatchError(ctx, error);
