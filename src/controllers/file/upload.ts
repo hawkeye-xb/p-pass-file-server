@@ -9,7 +9,7 @@ import {
 	RULES_ERR
 } from '../utils/index.ts';
 
-import multer from 'koa-multer';
+import multer from '@koa/multer';
 import { Next } from 'koa';
 
 // 上传到目标目录
