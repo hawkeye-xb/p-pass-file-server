@@ -6,7 +6,7 @@ import {
 } from '../utils/index.ts';
 import crypto from 'crypto';
 
-const temporaryRoot = path.join(process.cwd(), 'temporary');
+const temporaryRoot = process.env.ELECTRON_CACHE_PATH || path.join(process.cwd(), 'temporary');
 export const createTemporaryDir = (ctx: Context) => {
 	try {
 		const pathId = generateUniqueString(8);
