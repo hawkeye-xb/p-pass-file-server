@@ -1,0 +1,51 @@
+name: Build and Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.11.0'
+          npm-version: '10.9.0'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Rebuild
+        run: npm rebuild
+
+      - name: Build
+        run: npm run build
+        
+      - name: Zip dist directory
+        run: |
+          cd dist
+          zip -r ../p-pass-file-server.zip ./*
+          cd ..
+
+      - name: Create Release
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: P Pass File Server ${{ github.ref_name }}
+          body: |
+            P Pass File Server Release ${{ github.ref_name }}
+            
+            构建时间: ${{ steps.date.outputs.date }}
+            提交信息: ${{ github.event.head_commit.message }}
+          files: p-pass-file-server.zip
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.AUTH_TOKEN }}
