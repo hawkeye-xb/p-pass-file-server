@@ -21,20 +21,16 @@ const resolveNodePlugin = {
 };
 
 esbuild.build({
-  entryPoints: ['src/index.ts'], // 入口文件
-  bundle: true, // 打包依赖
-  platform: 'node', // 指定为 Node.js 平台
-  format: 'cjs', // 设置为 ES 模块
-  outfile: 'dist/index.js', // 输出文件
-  // external: ['diskusage'], // 排除原生模块
+  entryPoints: ['src/index.ts'],
+  bundle: true,
+  platform: 'node',
+  format: 'cjs',
+  outfile: 'dist/index.js',
+  external: [
+    'trash', // 将 trash 标记为外部依赖
+  ],
   define: {
-    'import.meta.url': JSON.stringify(`file://${path.resolve(__dirname, 'src/index.ts')}`), // 定义 import.meta.url
+    'import.meta.url': JSON.stringify(`file://${path.resolve(__dirname, 'src/index.ts')}`),
   },
-	// banner: {
-  //   js: `
-  //     import { createRequire } from 'node:module';
-  //     const require = createRequire(import.meta.url);
-  //   `,
-  // },
-  plugins: [resolveNodePlugin], // 使用自定义插件
+  plugins: [resolveNodePlugin],
 }).catch(() => process.exit(1));
