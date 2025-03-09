@@ -26,9 +26,6 @@ esbuild.build({
   platform: 'node',
   format: 'cjs',
   outfile: 'dist/index.js',
-  external: [
-    'trash', // 将 trash 标记为外部依赖
-  ],
   define: {
     'import.meta.url': JSON.stringify(`file://${path.resolve(__dirname, 'src/index.ts')}`),
   },

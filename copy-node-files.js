@@ -13,6 +13,7 @@ if (!fs.existsSync(destDirDiskUsage)) {
   fs.mkdirSync(destDirDiskUsage, { recursive: true });
 }
 
+console.log(path.join(srcDirDiskUsage, 'diskusage.node'), path.join(destDirDiskUsage, 'diskusage.node'));
 fs.copyFileSync(path.join(srcDirDiskUsage, 'diskusage.node'), path.join(destDirDiskUsage, 'diskusage.node'));
 
 // 添加 trash 依赖的复制
